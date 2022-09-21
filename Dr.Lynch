@@ -1,0 +1,71 @@
+# PASSWORD VALIDATOR TEMPLATE: REPLACE THIS LINE WITH YOUR FILE HEADER
+import random
+
+def validate(password):
+    #creating a list to store and seeing it if passes the criteria for the password
+    flagmap = [0]*4 
+#commit die
+    if len(password) < 8:
+        
+        return "Invalid"
+    #password requirment check    
+    for character in password:
+        #checks forbidden characters
+        if character in list(" @#"):
+            
+          return "Invalid"
+        #checks if a capital is in the password,  
+        if character in list("QWERTYUIOPASDFGHJKLZXCVBNM"):
+            flagmap[0] = 1
+        #checks if a lower case letter is present    
+        if character in list("qwertyuiopasdfghjklzxcvbnm"):
+            flagmap[1] = 1
+        #checking if a digit is present    
+        if character in list("1234567890"):
+            flagmap[2] = 1
+        #checks if a special character is included    
+        if character in list("!-$%&'()*+,./:;<=>?_[]^`{|}~"):    
+            flagmap[3] = 1
+        #summing the value of the flagmaps, and if they add up to 4, all of them passed. Otherwise it is a weak password
+    if sum(flagmap) < 4:
+        return "Insecure"
+    else:
+        return "Secure"
+    
+
+def generate(n):
+    n = int(n)-1
+    if n < 7:
+        n = 7
+    password = [""]*n
+    confirm = "commitdie"
+    alpcap = list("QWERTYUIOPASDFGHJKLZXCVBNM")
+    alplow = list("qwertyuiopasdfghjklzxcvbnm")
+    specchar = list("!-$%&'()*+,./:;<=>?_[]^`{|}~")
+    while confirm != "Secure":
+        for i in range(n):
+            chtype = random.randint(0,3)
+            if chtype == 0:
+                ref = random.randint(0,25)
+                password[i] = alpcap[ref]
+            if chtype == 1:
+                ref = random.randint(0,25)
+                password[i] = alplow[ref]
+            if chtype == 2:
+                ref = random.randint(0,27)
+                password[i] = specchar[ref]
+            if chtype == 3:
+                ref = random.randint(0,9)
+                password[i] = str(ref)
+        password = "".join(password)
+        confirm = validate(password)
+    return password
+
+
+
+if __name__ == "__main__":
+    """password = input("Insert A Password ")
+    print(validate(password))"""
+    neighbor = input("n: ")
+    print(generate(neighbor))
+
