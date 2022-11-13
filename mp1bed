@@ -1,0 +1,9 @@
+l1 = list(map(int,input("").split()))
+l2 = list(map(int,input("").split()))
+x = l1[0]
+y = l1[1]
+x1 = l2[0]
+y1= l2[1]
+a = (x1-x)*(y1-y)
+
+print(a)
